@@ -1,0 +1,19 @@
+version: '3'
+services:
+  mysql-server:
+    ports:
+      - 3306:3306
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+    container_name: mysql
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:
+
+networks:
+  default:
+    external:
+      name: docker-network
