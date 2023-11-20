@@ -126,6 +126,14 @@ public class ReportControllerTest {
     doFailedCall(String.format(CUSTOMER_ENDPOINT, CUSTOMER_ID), errorMessage);
   }
 
+  @Test
+  public void testCalculateProductsByCustomer_GenericException() throws Exception {
+    String errorMessage = "Generic Error";
+    doThrow(new RuntimeException(errorMessage)).when(customerService)
+        .calculateProductsByCustomer(anyInt());
+    doFailedCall(String.format(CUSTOMER_ENDPOINT, CUSTOMER_ID), errorMessage, HttpStatus.INTERNAL_SERVER_ERROR);
+  }
+
   private Object doCall(String endpoint, Class<?> returnClass) {
     Object response;
     try {
@@ -141,10 +149,14 @@ public class ReportControllerTest {
   }
 
   private void doFailedCall(String endpoint, String errorMessage) {
+    doFailedCall(endpoint,errorMessage, HttpStatus.NOT_FOUND);
+  }
+
+  private void doFailedCall(String endpoint, String errorMessage, HttpStatus httpStatus) {
     try {
       ApiError error = (ApiError) doCall(endpoint, ApiError.class);
 
-      assertEquals(HttpStatus.NOT_FOUND, error.getStatus());
+      assertEquals(httpStatus, error.getStatus());
       assertEquals(1, error.getErrors().size());
       assertEquals(error.getMessage(), errorMessage);
       assertTrue(error.getErrors().get(0).contains("error occurred"));

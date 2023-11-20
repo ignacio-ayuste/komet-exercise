@@ -28,10 +28,4 @@ public class ApiError {
     errors = Collections.singletonList(error);
   }
 
-  @Override
-  public String toString() {
-    return "ApiError{" + "status=" + status + ", message='" + message + '\'' + ", errors=" + errors
-        + '}';
-  }
-
 }

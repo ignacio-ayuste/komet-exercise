@@ -5,12 +5,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Data;
+import lombok.Getter;
 
-@Data
+
+@Getter
 public class CompanyDTO implements Serializable {
 
-  private int companyId;
-  private List<ProductDTO> products;
+  private final int companyId;
+  private final List<ProductDTO> products;
 
   @JsonCreator
   public CompanyDTO(int companyId) {

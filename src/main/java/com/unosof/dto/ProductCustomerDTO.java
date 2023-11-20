@@ -3,9 +3,10 @@ package com.unosof.dto;
 import java.math.BigDecimal;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 
-@Data
 @AllArgsConstructor
+@Getter
 public class ProductCustomerDTO {
 
   private String productName;
