@@ -11,12 +11,11 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @NoArgsConstructor
-@Data
 @AllArgsConstructor
 @Table(name = "tblinventorypt")
 public class Inventory {
@@ -27,26 +26,32 @@ public class Inventory {
 
   @Basic
   @Column(name = "cubesPerCarrier")
+  @Getter
   private BigDecimal cubesPerCarrier;
 
   @Basic
   @Column(name = "pack")
+  @Getter
   private Integer pack;
 
   @Basic
   @Column(name = "basePrice")
+  @Getter
   private BigDecimal basePrice;
 
   @ManyToOne
   @JoinColumn(name = "boxTypeId", referencedColumnName = "id", nullable = false)
+  @Getter
   private BoxType boxType;
 
   @ManyToOne
   @JoinColumn(name = "productId", referencedColumnName = "id", nullable = false)
+  @Getter
   private Product product;
 
   @ManyToOne
   @JoinColumn(name = "companyId", referencedColumnName = "id", nullable = false)
+  @Getter
   private Company company;
 
 }

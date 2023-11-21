@@ -17,9 +17,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -61,4 +63,19 @@ public class CustomerServiceTest {
     assertNotNull(response);
     assertNotNull(response.getProducts());
   }
+
+  @Test
+  public void testCalculateProductsByCustomer_EntityNotFoundException() {
+    Integer customerId = 1;
+
+    when(customerRepository.findById(customerId)).thenReturn(Optional.empty());
+
+    assertThrows(EntityNotFoundException.class, () -> {
+      customerService.calculateProductsByCustomer(customerId);
+    });
+
+    verify(customerRepository, times(1)).findById(customerId);
+    verifyNoInteractions(productCustomerMapper);
+  }
+
 }

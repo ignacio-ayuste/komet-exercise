@@ -1,13 +1,12 @@
 package com.unosof.util;
 
-import com.unosof.entity.BoxType;
 import com.unosof.entity.Inventory;
-import com.unosof.entity.Product;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import static com.unosof.DataHelper.createInventory;
 import static com.unosof.util.ProductUtil.DECIMAL_SCALE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -15,8 +14,7 @@ public class ProductUtilTest {
 
   @Test
   public void testCalculatePrice() {
-    Inventory inventory = new Inventory();
-    inventory.setBasePrice(BigDecimal.valueOf(100));
+    Inventory inventory = createInventory(BigDecimal.valueOf(100), BigDecimal.TEN);
     BigDecimal markdown = BigDecimal.valueOf(20);
 
     BigDecimal expected = BigDecimal.valueOf(80.00).setScale(DECIMAL_SCALE, RoundingMode.HALF_UP);
@@ -27,11 +25,7 @@ public class ProductUtilTest {
 
   @Test
   public void testCalculateCubesPerBox() {
-    BoxType boxType = new BoxType(1, "boxType", BigDecimal.valueOf(30), BigDecimal.valueOf(40),
-        BigDecimal.valueOf(50));
-
-    Inventory inventory = new Inventory();
-    inventory.setBoxType(boxType);
+    Inventory inventory = createInventory(BigDecimal.TEN, BigDecimal.TEN);
 
     BigDecimal expected = BigDecimal.valueOf(34.72);
     BigDecimal result = ProductUtil.calculateCubesPerBox(inventory);
@@ -41,12 +35,10 @@ public class ProductUtilTest {
 
   @Test
   public void testCalculateOutboundFreight() {
-    Inventory inventory = new Inventory();
-    inventory.setCubesPerCarrier(BigDecimal.valueOf(100));
-    inventory.setPack(5);
+    Inventory inventory = createInventory(BigDecimal.valueOf(100), BigDecimal.TEN);
 
     BigDecimal cubesPerBox = BigDecimal.valueOf(20);
-    BigDecimal expected = BigDecimal.valueOf(400.00).setScale(DECIMAL_SCALE, RoundingMode.HALF_UP);
+    BigDecimal expected = BigDecimal.valueOf(40.00).setScale(DECIMAL_SCALE, RoundingMode.HALF_UP);
     BigDecimal result = ProductUtil.calculateOutboundFreight(inventory, cubesPerBox);
 
     assertEquals(expected, result, "Calculation for outbound freight is incorrect");
@@ -54,12 +46,10 @@ public class ProductUtilTest {
 
   @Test
   public void testCalculateFinalFreight() {
-    Inventory inventory = new Inventory();
-    Product product = new Product(1, "ExampleProduct", BigDecimal.TEN);
-    inventory.setProduct(product);
+    Inventory inventory = createInventory(BigDecimal.TEN, BigDecimal.valueOf(5));
 
     BigDecimal outboundFreight = BigDecimal.valueOf(500);
-    BigDecimal expected = BigDecimal.valueOf(50).setScale(DECIMAL_SCALE, RoundingMode.HALF_UP);
+    BigDecimal expected = BigDecimal.valueOf(5).setScale(DECIMAL_SCALE, RoundingMode.HALF_UP);
     BigDecimal result = ProductUtil.calculateFinalFreight(inventory, outboundFreight);
 
     assertEquals(expected, result, "Calculation for final freight is incorrect");

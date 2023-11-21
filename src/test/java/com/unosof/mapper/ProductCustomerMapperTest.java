@@ -1,27 +1,18 @@
 package com.unosof.mapper;
 
 import com.unosof.dto.ProductCustomerDTO;
-import com.unosof.entity.Company;
 import com.unosof.entity.Inventory;
-import com.unosof.entity.Product;
 import com.unosof.util.ProductUtil;
 import java.math.BigDecimal;
 import org.junit.jupiter.api.Test;
+import static com.unosof.DataHelper.createInventory;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ProductCustomerMapperTest {
 
   @Test
   public void testToDto() {
-    Inventory inventory = new Inventory();
-    Product product = new Product(1, "ExampleProduct", BigDecimal.ONE);
-    inventory.setProduct(product);
-
-    Company company = new Company(1, "ExampleCompany");
-    inventory.setCompany(company);
-
-    BigDecimal basePrice = BigDecimal.valueOf(100);
-    inventory.setBasePrice(basePrice);
+    Inventory inventory = createInventory(BigDecimal.TEN, BigDecimal.TEN);
 
     BigDecimal markdown = BigDecimal.valueOf(20);
     BigDecimal calculatedPrice = ProductUtil.calculatePrice(inventory, markdown);
