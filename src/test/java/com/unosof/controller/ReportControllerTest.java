@@ -77,8 +77,7 @@ public class ReportControllerTest {
     when(inventoryService.findProductsByCompany(anyInt())).thenReturn(mockResponse);
 
     List<?> response =
-        (List<?>) doCall(String.format(COMPANY_PRODUCTS_ENDPOINT, COMPANY_ID),
-            List.class);
+        (List<?>) doCall(String.format(COMPANY_PRODUCTS_ENDPOINT, COMPANY_ID), List.class);
 
     assertThat(response).hasSize(1).first().hasFieldOrPropertyWithValue("productName", PRODUCT_NAME)
         .hasFieldOrPropertyWithValue("productCode", "code");
@@ -131,7 +130,8 @@ public class ReportControllerTest {
     String errorMessage = "Generic Error";
     doThrow(new RuntimeException(errorMessage)).when(customerService)
         .calculateProductsByCustomer(anyInt());
-    doFailedCall(String.format(CUSTOMER_ENDPOINT, CUSTOMER_ID), errorMessage, HttpStatus.INTERNAL_SERVER_ERROR);
+    doFailedCall(String.format(CUSTOMER_ENDPOINT, CUSTOMER_ID), errorMessage,
+        HttpStatus.INTERNAL_SERVER_ERROR);
   }
 
   private Object doCall(String endpoint, Class<?> returnClass) {
@@ -149,7 +149,7 @@ public class ReportControllerTest {
   }
 
   private void doFailedCall(String endpoint, String errorMessage) {
-    doFailedCall(endpoint,errorMessage, HttpStatus.NOT_FOUND);
+    doFailedCall(endpoint, errorMessage, HttpStatus.NOT_FOUND);
   }
 
   private void doFailedCall(String endpoint, String errorMessage, HttpStatus httpStatus) {

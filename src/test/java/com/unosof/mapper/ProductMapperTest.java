@@ -18,9 +18,7 @@ public class ProductMapperTest {
   @Test
   public void testToDto() {
     Inventory inventory = new Inventory();
-    Product product = new Product();
-    product.setName("ExampleProduct");
-    product.setFreshCutValue(BigDecimal.valueOf(10));
+    Product product = new Product(1, "ExampleProduct", BigDecimal.TEN);
     inventory.setProduct(product);
 
     BigDecimal basePrice = BigDecimal.valueOf(100);
@@ -28,11 +26,8 @@ public class ProductMapperTest {
     inventory.setCubesPerCarrier(BigDecimal.valueOf(10));
     inventory.setPack(10);
 
-    BoxType boxType = new BoxType();
-    boxType.setWidth(BigDecimal.valueOf(10));
-    boxType.setHeight(BigDecimal.valueOf(5));
-    boxType.setLength(BigDecimal.valueOf(3));
-
+    BoxType boxType = new BoxType(1, "boxType", BigDecimal.valueOf(30), BigDecimal.valueOf(40),
+        BigDecimal.valueOf(50));
     inventory.setBoxType(boxType);
 
     BigDecimal cubesPerBox = calculateCubesPerBox(inventory);

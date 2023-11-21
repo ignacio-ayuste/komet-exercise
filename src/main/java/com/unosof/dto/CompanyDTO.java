@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import lombok.Data;
 import lombok.Getter;
 
 

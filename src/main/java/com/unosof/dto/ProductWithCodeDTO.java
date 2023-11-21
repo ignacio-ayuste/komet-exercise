@@ -1,7 +1,6 @@
 package com.unosof.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 
 @Getter

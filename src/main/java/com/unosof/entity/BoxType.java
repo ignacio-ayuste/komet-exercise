@@ -8,10 +8,14 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
-@Data
+@NoArgsConstructor
+@Getter
+@AllArgsConstructor
 @Table(name = "tblboxtypept")
 public class BoxType {
 

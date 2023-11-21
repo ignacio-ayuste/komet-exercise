@@ -40,8 +40,7 @@ public class CustomerServiceTest {
   @Test
   public void testCalculateProductsByCustomer() throws EntityNotFoundException {
     Integer customerId = 1;
-    Customer customer = new Customer();
-    customer.setId(customerId);
+    Customer customer = new Customer(customerId, "customerName", BigDecimal.ONE);
 
     when(customerRepository.findById(customerId)).thenReturn(Optional.of(customer));
 

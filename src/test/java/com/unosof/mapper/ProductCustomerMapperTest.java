@@ -14,12 +14,10 @@ public class ProductCustomerMapperTest {
   @Test
   public void testToDto() {
     Inventory inventory = new Inventory();
-    Product product = new Product();
-    product.setName("ExampleProduct");
+    Product product = new Product(1, "ExampleProduct", BigDecimal.ONE);
     inventory.setProduct(product);
 
-    Company company = new Company();
-    company.setName("ExampleCompany");
+    Company company = new Company(1, "ExampleCompany");
     inventory.setCompany(company);
 
     BigDecimal basePrice = BigDecimal.valueOf(100);

@@ -27,10 +27,8 @@ public class ProductUtilTest {
 
   @Test
   public void testCalculateCubesPerBox() {
-    BoxType boxType = new BoxType();
-    boxType.setWidth(BigDecimal.valueOf(30));
-    boxType.setHeight(BigDecimal.valueOf(40));
-    boxType.setLength(BigDecimal.valueOf(50));
+    BoxType boxType = new BoxType(1, "boxType", BigDecimal.valueOf(30), BigDecimal.valueOf(40),
+        BigDecimal.valueOf(50));
 
     Inventory inventory = new Inventory();
     inventory.setBoxType(boxType);
@@ -57,12 +55,11 @@ public class ProductUtilTest {
   @Test
   public void testCalculateFinalFreight() {
     Inventory inventory = new Inventory();
-    Product product = new Product();
-    product.setFreshCutValue(BigDecimal.valueOf(75));
+    Product product = new Product(1, "ExampleProduct", BigDecimal.TEN);
     inventory.setProduct(product);
 
     BigDecimal outboundFreight = BigDecimal.valueOf(500);
-    BigDecimal expected = BigDecimal.valueOf(375.00).setScale(DECIMAL_SCALE, RoundingMode.HALF_UP);
+    BigDecimal expected = BigDecimal.valueOf(50).setScale(DECIMAL_SCALE, RoundingMode.HALF_UP);
     BigDecimal result = ProductUtil.calculateFinalFreight(inventory, outboundFreight);
 
     assertEquals(expected, result, "Calculation for final freight is incorrect");
