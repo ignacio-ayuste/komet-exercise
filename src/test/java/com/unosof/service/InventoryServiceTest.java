@@ -10,12 +10,15 @@ import com.unosof.mapper.ProductWithCodeMapper;
 import com.unosof.repository.InventoryRepository;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -68,4 +71,19 @@ public class InventoryServiceTest {
 
     assertNotNull(resultDTOs);
   }
+
+  @Test
+  void testFindItemsByCompanyWhenEmptyInventoryList() {
+    when(inventoryRepository.findByCompanyId(anyInt())).thenReturn(Collections.emptyList());
+
+    assertThrows(EntityNotFoundException.class, () -> inventoryService.findItemsByCompany(1));
+  }
+
+  @Test
+  void testFindProductsByCompanyWhenEmptyInventoryList() {
+    when(inventoryRepository.findByCompanyId(anyInt())).thenReturn(Collections.emptyList());
+
+    assertThrows(EntityNotFoundException.class, () -> inventoryService.findProductsByCompany(1));
+  }
+
 }

@@ -3,11 +3,12 @@ package com.unosof;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+@SpringBootTest(classes = ExerciseApplication.class)
 class ExerciseApplicationTests {
 
   @Test
-  void contextLoads() {
+  public void contextLoads() {
+    ExerciseApplication.main(new String[] {});
   }
 
 }

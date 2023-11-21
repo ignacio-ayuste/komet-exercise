@@ -16,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import static com.unosof.DataHelper.createInventory;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.any;
@@ -47,6 +48,8 @@ public class CustomerServiceTest {
     when(customerRepository.findById(customerId)).thenReturn(Optional.of(customer));
 
     List<Inventory> inventories = new ArrayList<>();
+    Inventory inventory = createInventory(BigDecimal.TEN, BigDecimal.TEN);
+    inventories.add(inventory);
 
     when(productCustomerMapper.toDto(any(Inventory.class), any(BigDecimal.class))).thenReturn(
         new ProductCustomerDTO("productName", "companyName", BigDecimal.ONE));
